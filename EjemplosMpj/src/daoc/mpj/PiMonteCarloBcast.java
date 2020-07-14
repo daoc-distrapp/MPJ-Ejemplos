@@ -22,6 +22,7 @@ public class PiMonteCarloBcast {
 		long[] mispuntos = {0};
 		if(rank == master) {
 			mispuntos[0] = (long) (10000000 * rnd.nextDouble());
+			System.out.println(mispuntos[0]);
 		}
 		MPI.COMM_WORLD.Bcast(mispuntos, 0, 1, MPI.LONG, master);
 
