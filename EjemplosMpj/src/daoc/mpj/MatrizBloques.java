@@ -29,7 +29,7 @@ public class MatrizBloques {
 				promedio += mLocal[0].getValor(f, c);
 			}
 		}
-		promedio /= (mLocal[0].getFilas() + mLocal[0].getCols());
+		promedio /= (mLocal[0].getFilas() * mLocal[0].getCols());
 		for(int f = 0; f < mLocal[0].getFilas(); f++) {
 			for(int c = 0; c < mLocal[0].getCols(); c++) {
 				mLocal[0].setValor(promedio, f, c);
