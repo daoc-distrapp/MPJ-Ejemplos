@@ -1,10 +1,24 @@
 package daoc.mpj;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
+
 public class MiMatriz implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String IMG_PATH_01 = "zoom_20x20.png";
+	public static final String IMG_PATH_01_B = "zoom_20x20_b.png";
+	public static final String IMG_PATH_02 = "zoom_50x50.png";
+	public static final String IMG_PATH_02_B = "zoom_50x50_b.png";	
+	public static final String IMG_PATH_03 = "zoom_512x512.png";
+	public static final String IMG_PATH_03_B = "zoom_512x512_B.png";	
+	
 	double[][] matriz;
 	
 	MiMatriz() {}
@@ -82,6 +96,59 @@ public class MiMatriz implements Serializable {
 		return nueva;
 	}
 	
+	static MiMatriz[] desdeImagen(String imgFile) {
+		MiMatriz[] rgb = new MiMatriz[3];
+		
+		try {
+			BufferedImage img = ImageIO.read(new File(imgFile));
+			
+	        double[][] r = new double[img.getHeight()][img.getWidth()];
+	        double[][] g = new double[img.getHeight()][img.getWidth()];
+	        double[][] b = new double[img.getHeight()][img.getWidth()];
+	        
+	        for(int row = 0; row < img.getHeight(); row++) {
+	            for(int col = 0; col < img.getWidth(); col++) {
+	                Color c = new Color(img.getRGB(col, row));
+	                r[row][col] = c.getRed();
+	                g[row][col] = c.getGreen();
+	                b[row][col] = c.getBlue();
+	            }
+	        }
+	        
+	        rgb[0] = new MiMatriz(r);
+	        rgb[1] = new MiMatriz(g);
+	        rgb[2] = new MiMatriz(b);
+	        
+	        return rgb;   			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
+	static void haciaImagen(MiMatriz[] rgb, String imgFile) {	
+		BufferedImage img = new BufferedImage(rgb[0].getFilas(), rgb[0].getCols(), BufferedImage.TYPE_INT_RGB);
+		
+        for(int row = 0; row < img.getHeight(); row++) {
+            for(int col = 0; col < img.getWidth(); col++) {
+                Color c = new Color(
+                		(int)rgb[0].getValor(row, col), 
+                		(int)rgb[1].getValor(row, col), 
+                		(int)rgb[2].getValor(row, col));
+                img.setRGB(col, row, c.getRGB());
+            }
+        }  		
+		   
+        try {
+        	String ext = imgFile.substring(imgFile.length()-3);
+        	File outFile = new File(imgFile);
+			ImageIO.write(img, ext, outFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}        
+	}
+	
 	static MiMatriz ejemplo01 () {
 		double[][] matriz = {
 			{1, 2, 3, 10, 20, 30, 100, 200, 300},
@@ -105,5 +172,11 @@ public class MiMatriz implements Serializable {
 			str.append('\n');
 		}
 		return str.toString();
+	}
+	
+	public static void main(String[] args) {
+		MiMatriz[] rgb = MiMatriz.desdeImagen(IMG_PATH_03);
+		MiMatriz.haciaImagen(rgb, IMG_PATH_03_B);
+		System.out.println("Listo");
 	}
 }
