@@ -1,6 +1,8 @@
 package daoc.mpj;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -96,35 +98,55 @@ public class MiMatriz implements Serializable {
 		return nueva;
 	}
 	
-	static MiMatriz[] desdeImagen(String imgFile) {
-		MiMatriz[] rgb = new MiMatriz[3];
-		
+	static MiMatriz[] desdeImagenEscalada(String imgFile, int newWidth, int newHeight) {
 		try {
 			BufferedImage img = ImageIO.read(new File(imgFile));
-			
-	        double[][] r = new double[img.getHeight()][img.getWidth()];
-	        double[][] g = new double[img.getHeight()][img.getWidth()];
-	        double[][] b = new double[img.getHeight()][img.getWidth()];
-	        
-	        for(int row = 0; row < img.getHeight(); row++) {
-	            for(int col = 0; col < img.getWidth(); col++) {
-	                Color c = new Color(img.getRGB(col, row));
-	                r[row][col] = c.getRed();
-	                g[row][col] = c.getGreen();
-	                b[row][col] = c.getBlue();
-	            }
-	        }
-	        
-	        rgb[0] = new MiMatriz(r);
-	        rgb[1] = new MiMatriz(g);
-	        rgb[2] = new MiMatriz(b);
-	        
-	        return rgb;   			
+		
+	        Image tmp = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+	        BufferedImage destimg = new BufferedImage(newWidth, newHeight, img.getType());
+	
+	        Graphics2D g2d = destimg.createGraphics();
+	        g2d.drawImage(tmp, 0, 0, null);
+	        g2d.dispose();
+	
+	        return desdeImagen(img);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	static MiMatriz[] desdeImagen(String imgFile) {
+		try {
+			BufferedImage img = ImageIO.read(new File(imgFile));
+			return desdeImagen(img);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	static MiMatriz[] desdeImagen(BufferedImage img) {
+		MiMatriz[] rgb = new MiMatriz[3];
 
+        double[][] r = new double[img.getHeight()][img.getWidth()];
+        double[][] g = new double[img.getHeight()][img.getWidth()];
+        double[][] b = new double[img.getHeight()][img.getWidth()];
+        
+        for(int row = 0; row < img.getHeight(); row++) {
+            for(int col = 0; col < img.getWidth(); col++) {
+                Color c = new Color(img.getRGB(col, row));
+                r[row][col] = c.getRed();
+                g[row][col] = c.getGreen();
+                b[row][col] = c.getBlue();
+            }
+        }
+        
+        rgb[0] = new MiMatriz(r);
+        rgb[1] = new MiMatriz(g);
+        rgb[2] = new MiMatriz(b);
+        
+        return rgb;   			
 	}
 	
 	static void haciaImagen(MiMatriz[] rgb, String imgFile) {	
@@ -179,4 +201,5 @@ public class MiMatriz implements Serializable {
 		MiMatriz.haciaImagen(rgb, IMG_PATH_03_B);
 		System.out.println("Listo");
 	}
+	
 }
