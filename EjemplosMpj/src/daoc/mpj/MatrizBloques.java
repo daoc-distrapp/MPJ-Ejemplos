@@ -37,7 +37,7 @@ public class MatrizBloques {
 		
 		MPI.COMM_WORLD.Scatter(chicas, 0, 1, MPI.OBJECT, mLocal, 0, 1, MPI.OBJECT, master);
 		
-		//sacamos el promedio de todos los valores en la sumatriz recibida
+		//sacamos el promedio de todos los valores en la submatriz recibida
 		double promedio = 0;
 		for(int f = 0; f < mLocal[0].getFilas(); f++) {
 			for(int c = 0; c < mLocal[0].getCols(); c++) {

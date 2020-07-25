@@ -52,6 +52,37 @@ public class MiMatriz implements Serializable {
 		matriz[f][c] = valor;
 	}		
 	
+	int cuentaVecinos(int f, int c) {
+		int fi, ff, ci, cf;
+		fi = f-1 < 0 ? 0 : f-1;
+		ff = f+1 < getFilas() ? f+1 : f;
+		ci = c-1 < 0 ? 0 : c-1;
+		cf = c+1 < getCols() ? c+1 : c;
+		return (ff-fi+1) * (cf-ci+1);
+	}
+
+	double sumaVecinos(int f, int c) {
+		int fi, ff, ci, cf;
+		fi = f-1 < 0 ? 0 : f-1;
+		ff = f+1 < getFilas() ? f+1 : f;
+		ci = c-1 < 0 ? 0 : c-1;
+		cf = c+1 < getCols() ? c+1 : c;
+		
+		double suma = 0;
+		for(int row = fi; row <= ff; row++) {
+			for(int col = ci; col <= cf; col++) {
+				suma += getValor(row, col);
+			}
+		}		
+		
+		return suma;
+	}
+	
+	MiMatriz clonar() {
+		double[][] copy = Arrays.stream(matriz).map(double[]::clone).toArray(double[][]::new);
+		return new MiMatriz(copy);
+	}
+	
 	MiMatriz getSubMatriz(int initF, int finF, int initC, int finC) {
 		MiMatriz subM = new MiMatriz(finF-initF+1, finC-initC+1);
 		for(int f = initF; f <= finF; f++) {
@@ -197,8 +228,14 @@ public class MiMatriz implements Serializable {
 	}
 	
 	public static void main(String[] args) {
-		MiMatriz[] rgb = MiMatriz.desdeImagen(IMG_PATH_03);
-		MiMatriz.haciaImagen(rgb, IMG_PATH_03_B);
+//		MiMatriz[] rgb = MiMatriz.desdeImagen(IMG_PATH_03);
+//		MiMatriz.haciaImagen(rgb, IMG_PATH_03_B);
+		MiMatriz uno = MiMatriz.ejemplo01();
+		int cuenta = uno.cuentaVecinos(8, 8);
+		double suma = uno.sumaVecinos(8, 8);
+		System.out.println(cuenta);
+		System.out.println(suma);
+		System.out.println(suma/cuenta);
 		System.out.println("Listo");
 	}
 	
