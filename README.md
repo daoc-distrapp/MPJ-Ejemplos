@@ -24,7 +24,7 @@ Para ejecutar: `mpjrun Ej1Mpj` o `mpjrun -np 8 Ej1Mpj`
 
 ## Ejecución clúster en Linux
 
-En todos los equipos descomprima el instalador en algún directorio. Ej: `/home/yo/mpj/
+En todos los equipos descomprima el instalador en algún directorio. Ej: `/home/yo/mpj/`
 
 Edite el archivo .bashrc: `nano ~/.bashrc` e incluya *al inicio*:
 ```
@@ -62,3 +62,4 @@ Facilita el desarrollo y prueba de los programas.
 
 Instrucciones completas en: http://mpj-express.org/docs/guides/RunningandDebuggingMPJExpresswithEclipse.pdf
 
+Lista de los métodos en MPJ-Express: http://mpj-express.org/docs/guides/listofmpjmethods.pdf
