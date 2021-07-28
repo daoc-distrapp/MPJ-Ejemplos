@@ -1,10 +1,14 @@
 # MPJ-Ejemplos
 Algunos ejemplos del uso de MPJ-Express
 
-# Instalación
-Descargar "MPJ Express Software" en: http://mpj-express.org/download.php
+WebSite: https://sourceforge.net/projects/mpjexpress
 
-Instrucciones detalladas en: http://mpj-express.org/readme.html
+(Actualmente no está en funcionamiento http://mpj-express.org)
+
+# Instalación
+Descargar "MPJ Express Software" en: http://sourceforge.net/projects/mpjexpress/files/releases/mpj-v0_44.zip/download
+
+Instrucciones detalladas en: https://sourceforge.net/projects/mpjexpress/files/documentation/windowsguide.pdf/download
 
 # Rápidamente...
 
@@ -60,6 +64,8 @@ Para detener el clúster, ejecute desde el master: `mpjhalt machines`
 
 Facilita el desarrollo y prueba de los programas.
 
-Instrucciones completas en: http://mpj-express.org/docs/guides/RunningandDebuggingMPJExpresswithEclipse.pdf
+Instrucciones completas en: https://sourceforge.net/projects/mpjexpress/files/documentation/RunningandDebuggingMPJExpresswithEclipse.pdf/download
 
-Lista de los métodos en MPJ-Express: http://mpj-express.org/docs/guides/listofmpjmethods.pdf
+Requiere el MPJ Express Debugger https://sourceforge.net/projects/mpjexpress/files/debugger/mpj_debugger-v_1.0.0.zip/download
+
+Lista de los métodos en MPJ-Express: https://sourceforge.net/projects/mpjexpress/files/documentation/listofmpjmethods.pdf/download
